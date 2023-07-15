@@ -13,7 +13,7 @@ def load_weather_to_bronze() -> str:
     try:
         status_code = response.status_code
         if status_code != 200:
-            raise requests.exceptions.HTTPError
+            raise requests.exceptions.HTTPError(403)
         else:
             weather = json.loads(response.text)
     except requests.exceptions.HTTPError:
@@ -54,7 +54,7 @@ def load_weather_to_bronze() -> str:
 
     user = "airflow"
     password = "airflow"
-    host = "172.18.0.2"
+    host = "172.18.0.10"
     database = "demo_project"
     schema = "bronze"
     conn = create_engine(f"postgresql+psycopg2://{user}:{password}@{host}/{database}",
