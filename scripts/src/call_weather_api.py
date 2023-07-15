@@ -1,24 +1,25 @@
-def load_weather_to_bronze() -> str:
+#def load_weather_to_bronze() -> str:
 
-    import requests, json
-    import pandas as pd
-    from sqlalchemy import create_engine
-    import psycopg2
+import requests, json
+import pandas as pd
+from sqlalchemy import create_engine
+import psycopg2
 
-    key = "4b711529dbd04dc595351103231207"
-    q = "M2M"
-    url = f"http://api.weatherapi.com/v1/forecast.json?key={key}&q={q}"
+
+def extract_from_api(key:str, location:str) -> dict:
+    #key = "4b711529dbd04dc595351103231207"
+    #q = "M2M"
+    url = f"http://api.weatherapi.com/v1/forecast.json?key={key}&q={location}"
 
     response = requests.get(url=url)
-    try:
-        status_code = response.status_code
-        if status_code != 200:
-            raise requests.exceptions.HTTPError
-        else:
-            weather = json.loads(response.text)
-    except requests.exceptions.HTTPError:
-        return (f"http response code: {status_code}")
+    status_code = response.status_code
+    if status_code != 200:
+        raise requests.exceptions.HTTPError("403")
+    else:
+        weather = json.loads(response.text)
+        return weather
 
+def transform(weather: dict) -> {pd.DataFrame}:
     output = {}
 
     location_df = pd.json_normalize(weather['location'], sep="_")
@@ -52,18 +53,22 @@ def load_weather_to_bronze() -> str:
     hourly_forecast_df = pd.merge(location_df[["lat", "lon"]], hourly_forecast_df, how="cross")
     output["hourly_forecast_df"] = hourly_forecast_df
 
+    return output
+
+def load_to_bronze(df_dict:dict) -> str:
+
     user = "airflow"
     password = "airflow"
-    host = "172.18.0.2"
+    host = "172.18.0.10"
     database = "demo_project"
     schema = "bronze"
     conn = create_engine(f"postgresql+psycopg2://{user}:{password}@{host}/{database}",
                                 pool_recycle=3600, echo=True)
 
     table_list = []
-    for table in output:
-        output[table].to_sql(schema=schema, name=table.replace("_df",""), con=conn, if_exists="replace")
+    for table in df_dict:
+        df_dict[table].to_sql(schema=schema, name=table.replace("_df",""), con=conn, if_exists="replace")
         table_list.append(table.replace("_df",""))
 
-    return f"the following table has been loaded to bronze: {', '.join(table_list)}"
+    return f"the following table has been loaded to bronze: {', '.join(table_list)}", len(table_list)
 
