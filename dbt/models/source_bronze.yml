@@ -1,0 +1,75 @@
+version: 2
+
+sources:
+  - name: bronze
+    tables:
+      - name: location
+        columns:
+          - name: lat
+            tests:
+              - not_null
+          - name: lon
+            tests:
+              - not_null
+
+      - name: astro
+        description: astro infomartion
+        columns:
+          - name: lat
+            tests:
+              - not_null
+          - name: lon
+            tests:
+              - not_null
+          - name: date
+            test:
+              - not_null
+
+      - name: daily_forecast
+        columns:
+          - name: lat
+            test:
+              - not_null
+          - name: lon
+            test:
+              - not_null
+          - name: date
+              - not_null
+
+      - name: hourly_forecast
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+              combination_of_columns:
+                - lat
+                - lon
+                - time_epoch
+        columns:
+          - name: lat
+            test:
+              - not_null
+          - name: lon
+            test:
+              - not_null
+          - name: time_epoch
+            test:
+              - not_null
+              - unique
+
+      - name: weather_history
+        tests:
+          - dbt_utils.unique_combination_of_columns:
+              combination_of_columns:
+                - lat
+                - lon
+                - last_updated
+        columns:
+          - name: lat
+            tests:
+              - not_null
+          - name: lon
+            tests:
+              - not_null
+          - name: last_updated
+            test:
+              - not_null
+
