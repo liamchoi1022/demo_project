@@ -15,7 +15,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator, PythonVirtualenvOperator
 from airflow.providers.ssh.operators.ssh import SSHOperator
 
-sys.path.append("/opt/airflow/scripts/src")
+sys.path.append("/opt/airflow/scripts")
 from call_weather_api import load_weather_to_bronze
 
 
