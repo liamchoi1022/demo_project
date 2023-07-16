@@ -17,3 +17,8 @@ dbt/target
 #airflow
 dags/__pycache__
 scripts/__pycache__
+
+#pyspark
+/pyspark/.ipynb_checkpoints
+/pyspark/postgresql-42.6.0.jar
+get_pyspark_token.sh
