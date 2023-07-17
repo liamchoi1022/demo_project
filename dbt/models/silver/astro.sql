@@ -7,7 +7,7 @@
 
 select 
     {{ gen_key(['lat', 'lon', 'date']) }} id,
-    lat::decimal(5,2) atitude ,
+    lat::decimal(5,2) latitude ,
     lon::decimal(5,2) longitude,
     sunrise::time sunrise,
     sunset::time sunset,

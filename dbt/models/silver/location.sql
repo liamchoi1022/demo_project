@@ -10,7 +10,7 @@ select
     location_name::varchar(100) location_name,
     region::varchar(100) region,
     country::varchar(100) country,
-    lat::decimal(5,2) atitude ,
+    lat::decimal(5,2) latitude ,
     lon::decimal(5,2) longitude,
     tz_id::varchar(50) timezone,
     localtime_epoch::integer localtime_epoch,
