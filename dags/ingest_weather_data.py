@@ -12,6 +12,7 @@ from textwrap import dedent
 import sys
 import pendulum
 from airflow import DAG
+from airflow.decorators import task
 from airflow.operators.python import PythonOperator, PythonVirtualenvOperator
 from airflow.providers.ssh.operators.ssh import SSHOperator
 
@@ -26,6 +27,7 @@ with DAG(
     schedule=None,
     start_date=pendulum.datetime(2023, 7, 13, tz="UTC"),
     catchup=False,
+    params= {"postal_code": "M2M"},
     tags=["demo"],
 ) as dag:
     # [END instantiate_dag]
@@ -33,10 +35,23 @@ with DAG(
     dag.doc_md = __doc__
     # [END documentation]
 
+
+    @task(task_id="get_postal_code")
+    def get_postal_code(**kwargs) -> list[str]:
+        ti: TaskInstance = kwargs["ti"]
+        dag_run: DagRun = ti.dag_run
+        if "postal_code" not in dag_run.conf:
+            print("Uuups, no postal_code given, was no UI used to trigger?")
+            return []
+        return dag_run.conf["postal_code"]
+
+    postal_code = get_postal_code()
+
     extract_task = PythonVirtualenvOperator(
     task_id = "call_weather_api",
     requirements = ["pandas","sqlalchemy", "psycopg2-binary"],
     python_callable = load_weather_to_bronze,
+    op_kwargs = {"postal_code": postal_code}
     )
 
     extract_task.doc_md = dedent(
@@ -68,5 +83,7 @@ with DAG(
     #### incremental load data to silver
     """
     )
+
+    
     extract_task >> source_data_test >> transform_to_silver
 
