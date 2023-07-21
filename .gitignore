@@ -25,5 +25,6 @@ scripts/__pycache__
 get_pyspark_token.sh
 /pyspark/checkpoint
 /pyspark/spark-warehouse
+/pyspark/*.jar
 
 #sqlmesh
