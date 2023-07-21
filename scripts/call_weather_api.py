@@ -7,7 +7,7 @@ def load_weather_to_bronze(postal_code:str = "M2M") -> str:
     import configparser
 
     config = configparser.ConfigParser()
-    config.read("config.ini")
+    config.read("/opt/airflow/scripts/config.ini")
 
     key = config['WeatherAPI']['key']
     #q = "M2M"

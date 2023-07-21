@@ -5,7 +5,7 @@ def get_reddit(board:str) -> list:
     import configparser
 
     config = configparser.ConfigParser()
-    config.read("config.ini")
+    config.read("/opt/airflow/scripts/config.ini")
 
     client_id = config['reddit']['client_id']
     client_secret = config['reddit']['client_secret']
