@@ -9,6 +9,7 @@ __pycache__/
 logs/
 .cache
 dev/
+/scripts/config.ini
 
 #dbt
 dbt/dbt_packages
