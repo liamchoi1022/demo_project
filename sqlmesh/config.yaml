@@ -1,0 +1,14 @@
+gateways:
+    local:
+        connection:
+            type: postgres
+            user: airflow
+            password: airflow
+            host: localhost
+            port: 5432
+            database: demo_project
+
+default_gateway: local
+
+model_defaults:
+    dialect: postgres
