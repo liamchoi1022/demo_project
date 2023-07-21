@@ -49,7 +49,7 @@ with DAG(
 
     extract_task = PythonVirtualenvOperator(
     task_id = "call_weather_api",
-    requirements = ["pandas","sqlalchemy", "psycopg2-binary"],
+    requirements = ["praw","sqlalchemy", "psycopg2-binary"],
     python_callable = load_weather_to_bronze,
     op_kwargs = {"postal_code": postal_code}
     )
