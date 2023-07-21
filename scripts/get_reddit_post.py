@@ -2,10 +2,18 @@ def get_reddit(board:str) -> list:
 
     import praw, json
     from confluent_kafka import Producer
+    import configparser
+
+    config = configparser.ConfigParser()
+    config.read("config.ini")
+
+    client_id = config['reddit']['client_id']
+    client_secret = config['reddit']['client_secret']
+
 
     reddit = praw.Reddit(
-        client_id="4FP4atm8WY_OKmoTyj9KzA",
-        client_secret="qEnPX-C2KBBX37404E6FTdUnWoNYRw",
+        client_id=client_id,
+        client_secret=client_secret,
         user_agent="my user agent",
     )
 

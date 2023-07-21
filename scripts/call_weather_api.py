@@ -4,9 +4,12 @@ def load_weather_to_bronze(postal_code:str = "M2M") -> str:
     import pandas as pd
     from sqlalchemy import create_engine
     import psycopg2
+    import configparser
 
+    config = configparser.ConfigParser()
+    config.read("config.ini")
 
-    key = "4b711529dbd04dc595351103231207"
+    key = config['WeatherAPI']['key']
     #q = "M2M"
     url = f"http://api.weatherapi.com/v1/forecast.json?key={key}&q={postal_code}"
 
