@@ -7,7 +7,8 @@ __pycache__/
 .env
 .dbt/
 logs/
-
+.cache
+dev/
 
 #dbt
 dbt/dbt_packages
@@ -22,3 +23,7 @@ scripts/__pycache__
 /pyspark/.ipynb_checkpoints
 /pyspark/postgresql-42.6.0.jar
 get_pyspark_token.sh
+/pyspark/checkpoint
+/pyspark/spark-warehouse
+
+#sqlmesh

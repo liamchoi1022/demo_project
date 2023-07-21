@@ -2,3 +2,5 @@ pandas
 mysql-connector-python
 mysql
 virtualenv
+praw
+confluent_kafka

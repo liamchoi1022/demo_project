@@ -61,7 +61,7 @@ x-airflow-common:
     AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
     AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
-    AIRFLOW__CORE__LOAD_EXAMPLES: 'true'
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
     # yamllint disable rule:line-length
     # Use simple http server on scheduler for health checks
@@ -120,6 +120,7 @@ services:
     networks:
       default:
         ipv4_address: 172.18.0.11
+
 
 #  pyspark:
 #    image: jupyter/pyspark-notebook:latest
@@ -356,8 +357,15 @@ volumes:
 
 networks:
   default:
+    name: demo_project_network
     driver: bridge
     ipam:
      config:
        - subnet: 172.18.0.0/16
          gateway: 172.18.0.1
+
+
+#networks:
+#  default:
+#    name: shared-network
+#    external: true
