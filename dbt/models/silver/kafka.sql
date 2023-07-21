@@ -16,5 +16,5 @@ select id,
     to_timestamp(updated) updated
 from {{ source('bronze','kafka') }}
 {% if is_incremental() %}
-  where updated > (select max(updated) from {{ this }})
+  where to_timestamp(updated) > (select max(updated) from {{ this }})
 {% endif %}
