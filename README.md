@@ -7,7 +7,7 @@ The project demostrates two use cases.
 Grep data from WeatherAPI, transform the data and store in data warehouse.
 This pipeline is trigger by restAPI.
 
-![use case 1](./docs/use_case_1.png){:height="2260px" width="252px"}
+![use case 1](./docs/use_case_1.png)
 Tasks are following the below steps:
 1. Get the input postal code from the API trigger
 1. Trigger the python script to get the WeatherAPI data, break down into tables and write to PostgreSQL in the bronze schema
@@ -17,7 +17,7 @@ Tasks are following the below steps:
 ## Second use case
 Extract reddit post and stream to kafka topic to mimic streaming. Consume the topic using spark structure streaming and write the data in data warehouse. Finally transform the data.
 
-![use case 2](./docs/use_case_2.png =578×364)
+![use case 2](./docs/use_case_2.png)
 There are two airlfow dag in this use case.
 
 `get_reddit_post` is to mimic streaming the reddit data to kafka, it is scheduled to run every 10 mins. Behide the scene, it runs a python script to call the reddit api and publish the data to the kafka topic.
@@ -60,14 +60,14 @@ The service are spinned up after a while.
 
 Airflow:    http://localhost:8080/
 Note that the username and password are **airlfow**
-![Airflow UI](./docs/airflow_ui.png =1400x938)
+![Airflow UI](./docs/airflow_ui.png)
 
 Confluent:  http://localhost:9021/
-![Confluent UI](./docs/confluent_ui.png =986x1382)
+![Confluent UI](./docs/confluent_ui.png)
 
 PostgreSQL: jdbc:postgresql://localhost:5432/
 
-![PostgreSQL](./docs/postgres.png =414x122)
+![PostgreSQL](./docs/postgres.png)
 
 
 1. Create database and schema
