@@ -28,10 +28,8 @@ The notebook `pyspark/pyspark_kafka.ipynb` consumes the topic `kafka`, enforces 
 `etl_for_kafka_dataset` simply triggers the dbt run to load the data to silver incrementally.
 
 
-
-
 ## Prerequisite
-1. Spark, Python and PySpark should be installed on your local machine. Please refer to the below link for Mac.
+1. Spark, Python and PySpark should be installed on your local machine. Please refer to the below link for MacOS.
 https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 
 1. Get a key from WeatherAPI https://www.weatherapi.com/
@@ -108,7 +106,7 @@ https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
       -d '{
       "conf": {"postal_code":"T2J"}
       }'
-   ```
+      ```
 
 1. Check result in Postgre
    ```
