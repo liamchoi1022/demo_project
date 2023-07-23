@@ -19,13 +19,13 @@ Extract reddit post and stream to kafka topic to mimic streaming. Consume the to
 
 ![use case 2](./docs/use_case_2.png)
 
-There are two airlfow dag in this use case.
+There are two airlfow dags in this use case.
 
-`get_reddit_post` is to mimic streaming the reddit data to kafka, it is scheduled to run every 10 mins. Behide the scene, it runs a python script to call the reddit api and publish the data to the kafka topic.
+`get_reddit_post` is to mimic streaming the reddit data to kafka, it is scheduled to run every 10 mins. Behind the scene, it runs a python script to call the reddit api and publish the data to the kafka topic.
 
-The notebook `pyspark/pyspark_kafka.ipynb` is to consume the topic `kafka`, enforce the datatypes and write the data to Postgres.
+The notebook `pyspark/pyspark_kafka.ipynb` consumes the topic `kafka`, enforces the datatypes and writes the data to Postgres.
 
-`etl_for_kafka_dataset` simply trigger the dbt run to load the data to silver incrementally.
+`etl_for_kafka_dataset` simply triggers the dbt run to load the data to silver incrementally.
 
 
 ## Quickstart
