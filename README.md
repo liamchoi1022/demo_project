@@ -58,15 +58,15 @@ https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 
    The service are spinned up after a while.
 
-   * Airflow:    http://localhost:8080/
+   - Airflow:    http://localhost:8080/
 
       Note that the username and password are **airlfow**
       ![Airflow UI](./docs/airflow_ui.png)
 
-   * Confluent:  http://localhost:9021/
+   - Confluent:  http://localhost:9021/
       ![Confluent UI](./docs/confluent_ui.png)
 
-   * PostgreSQL: jdbc:postgresql://localhost:5432/
+   - PostgreSQL: jdbc:postgresql://localhost:5432/
 
       ![PostgreSQL](./docs/postgres.png)
 
