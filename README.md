@@ -60,15 +60,15 @@ https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 
    * Airflow:    http://localhost:8080/
 
-   Note that the username and password are **airlfow**
-   ![Airflow UI](./docs/airflow_ui.png)
+      Note that the username and password are **airlfow**
+      ![Airflow UI](./docs/airflow_ui.png)
 
    * Confluent:  http://localhost:9021/
-   ![Confluent UI](./docs/confluent_ui.png)
+      ![Confluent UI](./docs/confluent_ui.png)
 
    * PostgreSQL: jdbc:postgresql://localhost:5432/
 
-   ![PostgreSQL](./docs/postgres.png)
+      ![PostgreSQL](./docs/postgres.png)
 
 
 1. Create database and schema
