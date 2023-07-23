@@ -101,7 +101,7 @@ https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 ### Use case 1
 1. Trigger dag `demo_etl`
    - Go to Airflow UI and trigger the dag `demo_etl` with config. Default postal code will be **M2M** if triggering without config.
-      ![use_case1_trigger](./docs.use_case1_trigger.png)
+      ![use_case1_trigger](./docs/use_case1_trigger.png)
    
    - Or use an API call to trigger the dag run
       ```
