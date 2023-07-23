@@ -80,7 +80,7 @@ https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 
 1. Create database and schema
    ```
-   # sh
+   # bash
    docker exec -it demo_project-postgres-1 psql -U airflow
 
    # sql
@@ -101,12 +101,12 @@ https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 ### Use case 1
 1. Trigger dag `demo_etl`
    - Go to Airflow UI and trigger the dag `demo_etl` with config. Default postal code will be **M2M** if triggering without config.
-   
+
       ![use_case1_trigger](./docs/use_case1_trigger.png)
    
    - Or use an API call to trigger the dag run
       ```
-      #sh
+      #bash
       curl -X 'POST' \
       'http://localhost:8080/api/v1/dags/demo_etl/dagRuns' \
       -u airflow:airflow \
