@@ -7,7 +7,7 @@ The project demostrates two use cases.
 Grep data from WeatherAPI, transform the data and store in data warehouse.
 This pipeline is trigger by restAPI.
 
-![use case 1](./docs/use_case_1.png =2260×252)
+![use case 1](./docs/use_case_1.png){:height="2260px" width="252px"}
 Tasks are following the below steps:
 1. Get the input postal code from the API trigger
 1. Trigger the python script to get the WeatherAPI data, break down into tables and write to PostgreSQL in the bronze schema
