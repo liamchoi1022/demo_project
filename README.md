@@ -43,47 +43,47 @@ https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 1. Update the keys created above in `scripts/config.ini`
 
 1. Spin up docker containers
-open a terminal and execute the below command
-````
-# containers for airflow, postgreSQL and dbt
-cd demo_project
-docker compose up -d
+   open a terminal and execute the below command
+   ```
+   # containers for airflow, postgreSQL and dbt
+   cd demo_project
+   docker compose up -d
 
-# containers for confluent kafka cluster
-cd kafka
-docker compose up -d
-````
-After a while, services will be up and running.
-You can list the container using command `docker ps`
+   # containers for confluent kafka cluster
+   cd kafka
+   docker compose up -d
+   ```
+   After a while, services will be up and running.
+   You can list the container using command `docker ps`
 
-The service are spinned up after a while.
+   The service are spinned up after a while.
 
-Airflow:    http://localhost:8080/
+   Airflow:    http://localhost:8080/
 
-Note that the username and password are **airlfow**
-![Airflow UI](./docs/airflow_ui.png)
+   Note that the username and password are **airlfow**
+   ![Airflow UI](./docs/airflow_ui.png)
 
-Confluent:  http://localhost:9021/
-![Confluent UI](./docs/confluent_ui.png)
+   Confluent:  http://localhost:9021/
+   ![Confluent UI](./docs/confluent_ui.png)
 
-PostgreSQL: jdbc:postgresql://localhost:5432/
+   PostgreSQL: jdbc:postgresql://localhost:5432/
 
-![PostgreSQL](./docs/postgres.png)
+   ![PostgreSQL](./docs/postgres.png)
 
 
 1. Create database and schema
-```
-# sh
-docker exec -it demo_project-postgres-1 psql -U airflow
+   ```
+   # sh
+   docker exec -it demo_project-postgres-1 psql -U airflow
 
-# sql
-CREATE DATABASE demo_project;
+   # sql
+   CREATE DATABASE demo_project;
 
-\c demo_project
+   \c demo_project
 
-CREATE SCHEMA bronze;
-CREATE SCHEMA silver;
-CREATE SCHEMA gold;
+   CREATE SCHEMA bronze;
+   CREATE SCHEMA silver;
+   CREATE SCHEMA gold;
 
-exit
-```
+   exit
+   ```
