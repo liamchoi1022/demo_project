@@ -1,0 +1,12 @@
+demo_postgres:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: 172.18.0.10
+      port: 5432
+      user: airflow
+      password: airflow
+      database: demo_project
+      schema: bronze
+      threads: 2
