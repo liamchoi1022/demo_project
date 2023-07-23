@@ -18,6 +18,7 @@ Tasks are following the below steps:
 Extract reddit post and stream to kafka topic to mimic streaming. Consume the topic using spark structure streaming and write the data in data warehouse. Finally transform the data.
 
 ![use case 2](./docs/use_case_2.png)
+
 There are two airlfow dag in this use case.
 
 `get_reddit_post` is to mimic streaming the reddit data to kafka, it is scheduled to run every 10 mins. Behide the scene, it runs a python script to call the reddit api and publish the data to the kafka topic.
@@ -43,7 +44,7 @@ https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 
 1. Spin up docker containers
 open a terminal and execute the below command
-```
+    ```
 # containers for airflow, postgreSQL and dbt
 cd demo_project
 docker compose up -d
@@ -59,6 +60,7 @@ You can list the container using command `docker ps`
 The service are spinned up after a while.
 
 Airflow:    http://localhost:8080/
+
 Note that the username and password are **airlfow**
 ![Airflow UI](./docs/airflow_ui.png)
 
