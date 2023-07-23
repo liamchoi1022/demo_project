@@ -44,7 +44,7 @@ https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 
 1. Spin up docker containers
 open a terminal and execute the below command
-    ```
+````
 # containers for airflow, postgreSQL and dbt
 cd demo_project
 docker compose up -d
@@ -52,8 +52,7 @@ docker compose up -d
 # containers for confluent kafka cluster
 cd kafka
 docker compose up -d
-
-```
+````
 After a while, services will be up and running.
 You can list the container using command `docker ps`
 
