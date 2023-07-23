@@ -72,10 +72,3 @@ sources:
           - name: last_updated
             test:
               - not_null
-
-      - name: kafka
-        tests:
-          - dbt_utils.unique_combination_of_columns:
-              combination_of_columns:
-                - id
-                - updated

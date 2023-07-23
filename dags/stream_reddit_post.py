@@ -24,7 +24,6 @@ with DAG(
     schedule="*/10 * * * *",
     start_date=pendulum.datetime(2023, 7, 13, tz="UTC"),
     catchup=False,
-    params= {"reddit": "ontartio"},
     tags=["demo"],
 ) as dag:
     # [END instantiate_dag]
@@ -32,25 +31,12 @@ with DAG(
     dag.doc_md = __doc__
     # [END documentation]
 
-    @task(task_id="get_reddit")
-    def get_para(**kwargs) -> list[str]:
-        ti: TaskInstance = kwargs["ti"]
-        dag_run: DagRun = ti.dag_run
-        if "reddit" not in dag_run.conf:
-            print("Uuups, no postal_code given, was no UI used to trigger?")
-            return []
-        return dag_run.conf["reddit"]
-
-    para = get_para()
 
     extract_task = PythonVirtualenvOperator(
     task_id = "get_reddit_post",
     requirements = ["praw","confluent_kafka"],
-    python_callable = get_reddit,
-    op_kwargs = {"board": para}
+    python_callable = get_reddit
     )
-
-
     
     extract_task 
 

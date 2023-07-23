@@ -21,7 +21,7 @@ with DAG(
     "etl_for_kafka_dataset",
     default_args={"retries": 2},
     description="demo project pipeline",
-    schedule= "*/15 * * * *",
+    schedule= "*/5 * * * *",
     start_date=pendulum.datetime(2023, 7, 13, tz="UTC"),
     catchup=False,
     params= {"postal_code": "M2M"},

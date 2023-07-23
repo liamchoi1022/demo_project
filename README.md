@@ -1,13 +1,35 @@
-### demo_project
+# demo_project
 This is a demo project ETL project using postgreSQL, Apache Airflow, Confluent, dbt and PySpark.
 The project demostrates two use cases.
 
-1. Grep data from WeatherAPI, transform the data and store in data warehouse
-1. Extract reddit post and stream to kafka topic to mimic streaming. Consume the topic using spark structure streaming and write the data in data warehouse. Finally transform the data using dbt.
+
+## First use case
+Grep data from WeatherAPI, transform the data and store in data warehouse.
+This pipeline is trigger by restAPI.
+
+![use case 1](./docs/use_case_1.png =2260×252)
+Tasks are following the below steps:
+1. Get the input postal code from the API trigger
+1. Trigger the python script to get the WeatherAPI data, break down into tables and write to PostgreSQL in the bronze schema
+1. Data test on unique key and non-nullable columns by dbt
+1. Transform the data into correct data type in silver schema by dbt
+
+## Second use case
+Extract reddit post and stream to kafka topic to mimic streaming. Consume the topic using spark structure streaming and write the data in data warehouse. Finally transform the data.
+
+![use case 2](./docs/use_case_2.png =578×364)
+There are two airlfow dag in this use case.
+
+`get_reddit_post` is to mimic streaming the reddit data to kafka, it is scheduled to run every 10 mins. Behide the scene, it runs a python script to call the reddit api and publish the data to the kafka topic.
+
+The notebook `pyspark/pyspark_kafka.ipynb` is to consume the topic `kafka`, enforce the datatypes and write the data to Postgres.
+
+`etl_for_kafka_dataset` simply trigger the dbt run to load the data to silver incrementally.
+
 
 ## Quickstart
 
-# Prerequisite
+### Prerequisite
 1. Spark, Python and PySpark should be installed on your local machine. Please refer to the below link for Mac.
 https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 
@@ -15,7 +37,7 @@ https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 1. Get a client id and secret from reddit https://reddithelp.com/hc/en-us/requests/new?ticket_form_id=14868593862164
 
 
-# Docker containers
+### Docker containers
 
 1. Update the keys created above in `scripts/config.ini`
 
@@ -35,23 +57,32 @@ After a while, services will be up and running.
 You can list the container using command `docker ps`
 
 The service are spinned up after a while.
+
 Airflow:    http://localhost:8080/
 Note that the username and password are **airlfow**
-![Airflow UI](./docs/airflow_ui.png)
+![Airflow UI](./docs/airflow_ui.png =1400x938)
 
 Confluent:  http://localhost:9021/
-![Confluent UI](./docs/confluent_ui.png)
+![Confluent UI](./docs/confluent_ui.png =986x1382)
 
 PostgreSQL: jdbc:postgresql://localhost:5432/
-![PostgreSQL](./docs/postgres.png)
+
+![PostgreSQL](./docs/postgres.png =414x122)
 
 
-1. Create database named demo_project
-`CREATE DATABASE demo_project;`
-
-1. Create schemas
+1. Create database and schema
 ```
-CREATE SCHEMA demo_project.bronze;
-CREATE SCHEMA demo_project.silver;
-```
+# sh
+docker exec -it demo_project-postgres-1 psql -U airflow
 
+# sql
+CREATE DATABASE demo_project;
+
+\c demo_project
+
+CREATE SCHEMA bronze;
+CREATE SCHEMA silver;
+CREATE SCHEMA gold;
+
+exit
+```
