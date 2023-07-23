@@ -28,9 +28,9 @@ The notebook `pyspark/pyspark_kafka.ipynb` consumes the topic `kafka`, enforces 
 `etl_for_kafka_dataset` simply triggers the dbt run to load the data to silver incrementally.
 
 
-## Quickstart
 
-### Prerequisite
+
+## Prerequisite
 1. Spark, Python and PySpark should be installed on your local machine. Please refer to the below link for Mac.
 https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 
@@ -38,8 +38,9 @@ https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 1. Get a client id and secret from reddit https://reddithelp.com/hc/en-us/requests/new?ticket_form_id=14868593862164
 
 
-### Docker containers
+## Quickstart
 
+### Set up
 1. Update the keys created above in `scripts/config.ini`
 
 1. Spin up docker containers
@@ -91,38 +92,37 @@ https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 1. Create kafka topic
    Go the Confluent UI and creat a topic named **reddit**
 
-1. Use case 1
-   1. Trigger dag `demo_etl`
-      - Go to Airflow UI and trigger the dag `demo_etl` with config. Default postal code will be **M2M** if triggering without config.
-         ![use_case1_trigger](./docs.use_case1_trigger.png)
-      
-      - Or use an API call to trigger the dag run
-         ```
-         #sh
-         curl -X 'POST' \
-         'http://localhost:8080/api/v1/dags/demo_etl/dagRuns' \
-         -u airflow:airflow \
-         -H 'accept: application/json' \
-         -H 'Content-Type: application/json' \
-         -d '{
-         "conf": {"postal_code":"T2J"}
-         }'
+### Use case 1
+1. Trigger dag `demo_etl`
+   - Go to Airflow UI and trigger the dag `demo_etl` with config. Default postal code will be **M2M** if triggering without config.
+      ![use_case1_trigger](./docs.use_case1_trigger.png)
+   
+   - Or use an API call to trigger the dag run
       ```
+      #sh
+      curl -X 'POST' \
+      'http://localhost:8080/api/v1/dags/demo_etl/dagRuns' \
+      -u airflow:airflow \
+      -H 'accept: application/json' \
+      -H 'Content-Type: application/json' \
+      -d '{
+      "conf": {"postal_code":"T2J"}
+      }'
+   ```
 
-   1. Check result in Postgre
-      ```
-      SELECT * FROM silver.location;
-      SELECT * FROM silver.astro;
-      SELECT * FROM silver.daily_forecast;
-      SELECT * FROM silver.hourly_forecast;
-      SELECT * FROM silver.weather_history;
-      ```
+1. Check result in Postgre
+   ```
+   SELECT * FROM silver.location;
+   SELECT * FROM silver.astro;
+   SELECT * FROM silver.daily_forecast;
+   SELECT * FROM silver.hourly_forecast;
+   SELECT * FROM silver.weather_history;
+   ```
 
-
-1. Use Case 2
-   1. Start dag `get_reddit_post`
-   1. Go to Confluent Kafka, and see if there is new message topic `reddit`
-   1. Run notebook `pyspark/pyspark_kafka.ipynb`
-   1. Start dag `etl_for_kafka_dataset`
-   1. Check result in Postgre
-      `SELECT * FROM silver.kafka;`
+### Use Case 2
+1. Start dag `get_reddit_post`
+1. Go to Confluent Kafka, and see if there is new message topic `reddit`
+1. Run notebook `pyspark/pyspark_kafka.ipynb`
+1. Start dag `etl_for_kafka_dataset`
+1. Check result in Postgre
+   `SELECT * FROM silver.kafka;`
