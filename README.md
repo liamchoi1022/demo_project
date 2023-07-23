@@ -87,3 +87,42 @@ https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 
    exit
    ```
+
+1. Create kafka topic
+   Go the Confluent UI and creat a topic named **reddit**
+
+1. Use case 1
+   1. Trigger dag `demo_etl`
+      - Go to Airflow UI and trigger the dag `demo_etl` with config. Default postal code will be **M2M** if triggering without config.
+         ![use_case1_trigger](./docs.use_case1_trigger.png)
+      
+      - Or use an API call to trigger the dag run
+         ```
+         #sh
+         curl -X 'POST' \
+         'http://localhost:8080/api/v1/dags/demo_etl/dagRuns' \
+         -u airflow:airflow \
+         -H 'accept: application/json' \
+         -H 'Content-Type: application/json' \
+         -d '{
+         "conf": {"postal_code":"T2J"}
+         }'
+      ```
+
+   1. Check result in Postgre
+      ```
+      SELECT * FROM silver.location;
+      SELECT * FROM silver.astro;
+      SELECT * FROM silver.daily_forecast;
+      SELECT * FROM silver.hourly_forecast;
+      SELECT * FROM silver.weather_history;
+      ```
+
+
+1. Use Case 2
+   1. Start dag `get_reddit_post`
+   1. Go to Confluent Kafka, and see if there is new message topic `reddit`
+   1. Run notebook `pyspark/pyspark_kafka.ipynb`
+   1. Start dag `etl_for_kafka_dataset`
+   1. Check result in Postgre
+      `SELECT * FROM silver.kafka;`

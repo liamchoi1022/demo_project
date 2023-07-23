@@ -72,3 +72,5 @@ sources:
           - name: last_updated
             test:
               - not_null
+
+      - name: kafka
