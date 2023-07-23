@@ -40,6 +40,14 @@ https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
 
 ### Set up
 1. Update the keys created above in `scripts/config.ini`
+   ```
+   [WeatherAPI]
+   key = <please get a key from WeatherAPI>
+
+   [reddit]
+   client_id = <reddit_client_id>
+   client_secret = <reddit_client_secret>
+   ```
 
 1. Spin up docker containers
    open a terminal and execute the below command
