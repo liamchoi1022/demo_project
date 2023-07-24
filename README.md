@@ -21,11 +21,11 @@ Extract reddit post and stream to kafka topic to mimic streaming. Consume the to
 
 There are two airlfow dags in this use case.
 
-`get_reddit_post` is to mimic streaming the reddit data to kafka, it is scheduled to run every 10 mins. Behind the scene, it runs a python script to call the reddit api and publish the data to the kafka topic.
+`stream_reddit_post` is to mimic streaming the reddit data to kafka, it is scheduled to run every 10 mins. Behind the scene, it runs a python script to call the reddit api and publish the data to the kafka topic.
 
-The notebook `pyspark/pyspark_kafka.ipynb` consumes the topic `kafka`, enforces the datatypes and writes the data to Postgres.
+The notebook `pyspark/reddit_kafka2postgres.ipynb` consumes the topic `reddit`, enforces the datatypes and writes the data to Postgres.
 
-`etl_for_kafka_dataset` simply triggers the dbt run to load the data to silver incrementally.
+`etl_for_reddit_dataset` simply triggers the dbt run to load the data to silver incrementally.
 
 
 ## Prerequisite
@@ -127,9 +127,9 @@ https://sparkbyexamples.com/pyspark/how-to-install-pyspark-on-mac/
    ```
 
 ### Use Case 2
-1. Start dag `get_reddit_post`
+1. Start dag `stream_reddit_post`
 1. Go to Confluent Kafka, and see if there is new message topic `reddit`
-1. Run notebook `pyspark/pyspark_kafka.ipynb`
-1. Start dag `etl_for_kafka_dataset`
+1. Run notebook `pyspark/reddit_kafka2postgres.ipynb`
+1. Start dag `etl_for_reddit_dataset`
 1. Check result in Postgre
-   `SELECT * FROM silver.kafka;`
+   `SELECT * FROM silver.reddit;`

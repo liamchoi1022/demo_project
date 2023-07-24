@@ -18,7 +18,7 @@ from get_reddit_post import get_reddit
 
 
 with DAG(
-    "get_reddit_post",
+    "stream_reddit_post",
     default_args={"retries": 2},
     description="demo project get reddit post into kafka",
     schedule="*/10 * * * *",
