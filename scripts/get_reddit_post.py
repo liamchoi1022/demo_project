@@ -1,4 +1,4 @@
-def get_reddit(board:str) -> list:
+def get_reddit() -> list:
 
     import praw, json
     from confluent_kafka import Producer

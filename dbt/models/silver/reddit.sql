@@ -14,7 +14,7 @@ select id,
     no_of_comments,
     locked,
     to_timestamp(updated) updated
-from {{ source('bronze','kafka') }}
+from {{ source('bronze','reddit') }}
 {% if is_incremental() %}
   where to_timestamp(updated) > (select max(updated) from {{ this }})
 {% endif %}

@@ -1,2 +1,2 @@
-- name: bronze.kafka
+- name: bronze.reddit
   description: An external table

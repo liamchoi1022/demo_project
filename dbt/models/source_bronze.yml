@@ -73,4 +73,4 @@ sources:
             test:
               - not_null
 
-      - name: kafka
+      - name: reddit

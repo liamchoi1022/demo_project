@@ -1,9 +1,6 @@
 """
-### Demo ELT pipeline in Airflow
-This DAG is a demo for calling weatherAPI and load into postgreSQL.\n
-The raw data is loaded to bronze layer.\n
-Then perform data test on the source data.\n
-Finally incremental load to silver layer.\n
+### Incremental load for reddit data
+This DAG is a demo for incremental load for the reddit data from bronze to silver.
 """
 from __future__ import annotations
 
@@ -18,13 +15,12 @@ from airflow.providers.ssh.operators.ssh import SSHOperator
 
 
 with DAG(
-    "etl_for_kafka_dataset",
+    "etl_for_reddit_dataset",
     default_args={"retries": 2},
-    description="demo project pipeline",
+    description="demo project streaming pipeline",
     schedule= "*/5 * * * *",
     start_date=pendulum.datetime(2023, 7, 13, tz="UTC"),
     catchup=False,
-    params= {"postal_code": "M2M"},
     tags=["demo"],
 ) as dag:
     # [END instantiate_dag]
@@ -36,7 +32,7 @@ with DAG(
     kafka_incremental_load = SSHOperator(
         task_id = "kafka_incremental_load",
         ssh_conn_id = "dbt_ssh",
-        command = "cd dbt && dbt run -m kafka",
+        command = "cd dbt && dbt run -m reddit",
     )
 
 

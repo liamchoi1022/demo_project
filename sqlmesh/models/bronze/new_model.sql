@@ -6,4 +6,4 @@ MODEL (
 SELECT
   *
 FROM
-  bronze.kafka;
+  bronze.reddit;
